@@ -1,5 +1,6 @@
 const Doctor = require('../../../models/doctors');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports.index = function(req, res){
     return res.json(200, {
@@ -28,7 +29,7 @@ module.exports.createSession = async function(req, res){
         return res.json(200,{
             message:"sign in successful",
             data:{
-                token: jwt.sign(docs.toJSON(), 'HospitalAPI', {expiresIn: '2000000'})
+                token: jwt.sign(docs.toJSON(), process.env.JWT_KEY, {expiresIn: '2000000'})
             }
         })
     }catch(err){
